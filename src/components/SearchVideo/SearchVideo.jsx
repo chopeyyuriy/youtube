@@ -66,14 +66,13 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
     const handleSubmitVideo = async () => {
         const resp = await addVideo({
             name: result.name,
-            category_id: 1,
+            category_id: categorySelect,
             link: result.videoId,
             image: result.image,
             channel_link: result.channel.id,
             channel_name: result.channel.name
         })
-        console.log(resp)
-        onAddVideo(result);
+        onAddVideo(resp);
         handleCleanResults();
     }
 

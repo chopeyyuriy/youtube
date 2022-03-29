@@ -10,7 +10,6 @@ export const Preview = ({
     onSelectVideo,
     videoId,
     link,
-    onRemoveVideo,
     index
 }) => {
     const [visibleActions, setVisibleActions] = useState(false);
@@ -25,7 +24,6 @@ export const Preview = ({
                 onSelectVideo={onSelectVideo}
                 videoId={videoId}
                 link={link}
-                onRemoveVideo={onRemoveVideo}
                 index={index}
             />
             {

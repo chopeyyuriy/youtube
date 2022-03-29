@@ -5,7 +5,7 @@ import { VideoCart } from "../VideoCart/VideoCart";
 import { VideoPlayer } from "../VideoPlayer/VideoPlayer";
 import { Empty } from 'antd';
 
-export const VideosTable = ({ videos, onRemoveVideo }) => {
+export const VideosTable = ({ videos }) => {
     const [selectedVideo, setSelectedVideo] = useState(null);
 
     const handleSelectVideo = (videoId) => setSelectedVideo(videoId);
@@ -26,7 +26,6 @@ export const VideosTable = ({ videos, onRemoveVideo }) => {
                                     key={i}
                                     video={video}
                                     onSelectVideo={handleSelectVideo}
-                                    onRemoveVideo={onRemoveVideo}
                                 />
                             ))
                         }

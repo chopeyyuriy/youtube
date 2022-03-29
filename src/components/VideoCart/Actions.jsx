@@ -9,7 +9,6 @@ export const Actions = ({
     onSelectVideo,
     videoId,
     link,
-    onRemoveVideo,
     index
 }) => {
     const [copy, setCopy] = useState(false);

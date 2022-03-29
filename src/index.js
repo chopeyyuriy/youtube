@@ -6,15 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider, useQuery  } from 'react-query';
 import { HashRouter } from 'react-router-dom';
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-      retry: false,
-      staleTime: 0,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 
 ReactDOM.render(

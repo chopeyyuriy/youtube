@@ -9,7 +9,7 @@ const useRemoveVideo = () => {
 
     const { mutateAsync: asyncRemoveVideo, ...mutation } = useMutation(
         async (videoId) => (
-          await axios.post(`${hostname}archive_video/${videoId}`)
+          await axios.post(`${hostname}archive_video/${videoId}` )
         ),
       );
     

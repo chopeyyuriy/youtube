@@ -6,7 +6,6 @@ import { Preview } from "./Preview";
 export const VideoCart = ({
     video,
     onSelectVideo,
-    onRemoveVideo,
 }) => {
     const { name, image, link, channel_name, channel_link, duration, id } = video;
 
@@ -18,7 +17,6 @@ export const VideoCart = ({
                 onSelectVideo={onSelectVideo}
                 videoId={id}
                 link={link}
-                onRemoveVideo={onRemoveVideo}
                 id={id}
             />
             <Info

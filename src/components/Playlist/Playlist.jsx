@@ -9,27 +9,20 @@ import useGettingCategories from "../../hooks/categories/useGettingCategories";
 export const Playlist = () => {
     const { activeCategory } = useGettingCategories();
     const { videos } = useGettingVideos();
-    // const [videos, setVideos] = useState([])
     const [searching, setSearching] = useState(false)
     const [title, setTitle] = useState('Назва розділу');
 
     const handleCloseSearching = () => setSearching(false);
 
-    const handleAddVideo = (video) => {
-        // setVideos([video, ...videos]);
-        handleCloseSearching();
+    const handleAddVideo = (resp) => {
+        if(resp) {
+            handleCloseSearching();
+        }
     }
 
-    const handleRemoveVideo = (videoId) => {
-        const filteredVideos = videos.filter((video, index) => index !== videoId);
-        // setVideos(filteredVideos)
-        localStorage.setItem('videos', JSON.stringify(filteredVideos))
-        handleCloseSearching();
-    }
-
-    const handleChangePlaylistName = (value) => {
-        value.length > 0 && setTitle(value);
-    }
+    // const handleChangePlaylistName = (value) => {
+    //     value.length > 0 && setTitle(value);
+    // }
 
     return (
         <div>
@@ -53,7 +46,7 @@ export const Playlist = () => {
                     + Добавити нове відео
                 </Button>
             </StyledHeader>
-            <VideosTable videos={videos} onRemoveVideo={handleRemoveVideo} />
+            <VideosTable videos={videos}/>
         </div>
     )
 }
