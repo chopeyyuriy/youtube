@@ -1,8 +1,10 @@
 import { Button, Popconfirm, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { CopyOutlined, CheckOutlined, CaretRightOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CopyOutlined, CheckOutlined, CaretRightOutlined, DeleteOutlined, ReloadOutlined } from '@ant-design/icons';
 import useRemoveVideo from "../../hooks/videos/useRemoveVideo";
+import { useLocation } from "react-router-dom";
+import { ARCHIVE } from "../../contants/types";
 
 export const Actions = ({
     visible,
@@ -15,6 +17,9 @@ export const Actions = ({
     const [remove, setRemove] = useState(false);
     const [removeLabel, setRemoveLabel] = useState(false);
     const { removeVideo } = useRemoveVideo();
+    const location = useLocation();
+    const pathname = location.pathname.split('/')[1];
+    const isArchive = pathname === ARCHIVE;
 
     const handleCopyLink = () => {
         const videoLink = document.createElement("input");
@@ -31,7 +36,7 @@ export const Actions = ({
     }
 
     const handleRemove = () => {
-        removeVideo(videoId);
+        removeVideo({ videoId, archive: isArchive });
         setRemove(false);
     }
 
@@ -44,7 +49,7 @@ export const Actions = ({
     }, [visible])
 
     return (
-        <StyledActions visible={visible}>
+        <StyledActions visible={visible} isArchive={isArchive}>
             <Tooltip
                 title={copy ? 'Силку скопійовано' : 'Скопіювати силку'}
                 color={copy && 'green'}
@@ -65,9 +70,13 @@ export const Actions = ({
                     <CaretRightOutlined />
                 </Button>
             </Tooltip>
-            <Tooltip title="Видалити" color="red" visible={!remove && removeLabel}>
+            <Tooltip
+                title={isArchive ? 'Відновити' : "Видалити"}
+                color={!isArchive && 'red'}
+                visible={!remove && removeLabel}
+            >
                 <Popconfirm
-                    title="Ви точно хочете видалити відео?"
+                    title={isArchive ? 'Ви точно хочете відновити відео?' : "Ви точно хочете видалити відео?"}
                     onConfirm={handleRemove}
                     onCancel={() => setRemove(false)}
                     okText="Так"
@@ -80,7 +89,11 @@ export const Actions = ({
                         onMouseEnter={() => setRemoveLabel(true)}
                         onMouseLeave={() => setRemoveLabel(false)}
                     >
-                        <DeleteOutlined />
+                        {
+                            isArchive
+                                ? <ReloadOutlined />
+                                : <DeleteOutlined />
+                        }
                     </Button>
                 </Popconfirm>
             </Tooltip>
@@ -119,11 +132,14 @@ const StyledActions = styled.div`
             height: 60px;
             width: 60px;
         }
+        ${props => !props.isArchive && `
         &:last-child {
             &:hover,&:focus {
                 color: red;
                 border-color: red;
             }
         }
+        `
+    }
     }
 `;

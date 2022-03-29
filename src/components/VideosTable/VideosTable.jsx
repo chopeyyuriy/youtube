@@ -1,4 +1,3 @@
-import { PageHeader } from "antd";
 import React, { useState } from "react";
 import styled from "styled-components";
 import { VideoCart } from "../VideoCart/VideoCart";
@@ -30,7 +29,7 @@ export const VideosTable = ({ videos }) => {
                             ))
                         }
                     </StyledVideos>
-                    : <Empty description="Немає збережених відео"/>
+                    : <Empty description="Немає збережених відео" />
             }
         </StyledVideosTable>
     )

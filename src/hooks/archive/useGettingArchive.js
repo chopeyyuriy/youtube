@@ -7,7 +7,7 @@ import { ARCHIVE } from "../../contants/types";
 const useGettingArchive = () => {
     const { data: archive = [] } = useQuery(
         [ARCHIVE],
-        async () => (await axios.get(`${hostname}api/archive_video`)).data,
+        async () => (await axios.get(`${hostname}api/get_removed_videos`)).data.videos,
     );
 
     return {

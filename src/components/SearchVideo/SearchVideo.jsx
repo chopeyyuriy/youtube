@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, Input, Modal, Select } from "antd";
 import { SearchOutlined } from '@ant-design/icons';
@@ -47,7 +47,7 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
                         channel: {
                             id: channelData?.items[0]?.id,
                             name: channelData?.items[0]?.snippet?.localized?.title,
-                            logo: channelData?.items[0]?.snippet?.thumbnails?.default?.url
+                            image_channel: channelData?.items[0]?.snippet?.thumbnails?.default?.url
                         }
                     })
                 } else {
@@ -64,17 +64,27 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
     }
 
     const handleSubmitVideo = async () => {
+        setAdding(true)
         const resp = await addVideo({
             name: result.name,
             category_id: categorySelect,
             link: result.videoId,
             image: result.image,
+            duration: result.duration,
             channel_link: result.channel.id,
-            channel_name: result.channel.name
+            channel_name: result.channel.name,
+            image_channel: result.channel.image_channel
         })
+        resp && setAdding(false)
         onAddVideo(resp);
         handleCleanResults();
     }
+
+    useEffect(() => {
+        if(!visible) {
+            setCategotySelect(categoryId ?? 'default');
+        }
+    }, [visible, categoryId])
 
     return (
         <Modal
@@ -85,6 +95,7 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
             okButtonProps={{ disabled: !result || categorySelect === 'default' }}
             onCancel={handleCloseModal}
             onOk={handleSubmitVideo}
+            confirmLoading={adding}
             destroyOnClose
         >
             <StyledSearch>

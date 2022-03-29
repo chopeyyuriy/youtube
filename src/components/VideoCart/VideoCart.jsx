@@ -7,7 +7,7 @@ export const VideoCart = ({
     video,
     onSelectVideo,
 }) => {
-    const { name, image, link, channel_name, channel_link, duration, id } = video;
+    const { name, image, link, channel_name, channel_link, duration, id, image_channel } = video;
 
     return (
         <StyledVideoCart>
@@ -22,6 +22,7 @@ export const VideoCart = ({
             <Info
                 title={name}
                 channelName={channel_name}
+                logo={image_channel}
                 channelId={channel_link}
             />
         </StyledVideoCart>

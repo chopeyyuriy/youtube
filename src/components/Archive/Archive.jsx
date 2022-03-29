@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { Button, Typography } from "antd";
-import { SearchVideo } from "../SearchVideo/SearchVideo";
+import { Typography } from "antd";
 import { VideosTable } from "../VideosTable/VideosTable";
-import useGettingVideos from "../../hooks/videos/useGettingVideos";
 import useGettingArchive from "../../hooks/archive/useGettingArchive";
 
 export const Archive = () => {
     const { archive } = useGettingArchive();
-    const [title, setTitle] = useState('Архів');
-
-    const handleRemoveVideo = (videoId) => {
-        // const filteredVideos = videos.filter((video, index) => index !== videoId);
-        // setVideos(filteredVideos)
-    }
-    
     return (
         <div>
             <StyledHeader>
-                <Typography.Title level={2}                >
-                    {title}
+                <Typography.Title level={2}>
+                    Архів
                 </Typography.Title>
             </StyledHeader>
-            <VideosTable videos={archive} onRemoveVideo={handleRemoveVideo} />
+            <VideosTable videos={archive} />
         </div>
     )
 }

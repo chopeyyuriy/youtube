@@ -1,15 +1,19 @@
 import React from "react";
 import styled from "styled-components";
-import { Avatar, Image } from "antd";
+import { Avatar } from "antd";
 
-export const Info = ({ title, channelName, channelLogo, channelId }) => {
+export const Info = ({ title, channelName, logo, channelId }) => {
     const channelLink = `https://www.youtube.com/channel/${channelId}`;
 
     return (
         <StyledInfo>
-            <a href={channelLink} target="_blank" >
+            <a
+                href={channelLink}
+                target="_blank"
+                rel="noreferrer"
+            >
                 <Avatar
-                    src={channelLogo}
+                    src={logo}
                     size={36}
                     draggable={false}
                 />
@@ -22,7 +26,12 @@ export const Info = ({ title, channelName, channelLogo, channelId }) => {
                             : title
                     }
                 </span>
-                <a href={channelLink} target="_blank">{channelName}</a>
+                <a
+                    href={channelLink}
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    {channelName}</a>
             </StyledDescription>
         </StyledInfo>
     )
