@@ -18,7 +18,7 @@ export const CategoryPage = () => {
                 title={activeCategory?.name}
                 sortActiveOption={sortActiveOption}
                 onChangeSort={handleChangeSortActiveOption}
-                countVideos={activeCategory?.count_videos}
+                countVideos={videos.length}
                 addVideo
             />
             <VideosTable
