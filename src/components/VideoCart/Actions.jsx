@@ -12,7 +12,7 @@ import {
 } from '@ant-design/icons';
 import useRemoveVideo from "../../hooks/videos/useRemoveVideo";
 import { useLocation } from "react-router-dom";
-import { ARCHIVE } from "../../constats/types";
+import { ARCHIVE, FAVORITES } from "../../constats/types";
 import useToggleFavorite from "../../hooks/favorites/useToggleFavorite";
 
 export const Actions = ({
@@ -31,7 +31,8 @@ export const Actions = ({
     const location = useLocation();
     const pathname = location.pathname.split('/')[1];
     const isArchive = pathname === ARCHIVE;
-
+    const isFavorites = pathname === FAVORITES;
+    
     const handleCopyLink = () => {
         const videoLink = document.createElement("input");
         videoLink.value = `https://www.youtube.com/watch?v=${link}`;
@@ -43,7 +44,7 @@ export const Actions = ({
     }
 
     const handleFavorite = async() => {
-        const resp = await toggleFavorite({id: videoId});
+        const resp = await toggleFavorite({id: videoId, favorites: isFavorites});
         changeFavorite(resp)
     }
     const handlePlayVideo = () => {

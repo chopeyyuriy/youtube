@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import styled from "styled-components";
 import { Layout, Menu } from "antd";
 import {
     HomeFilled,
@@ -35,10 +36,14 @@ export const SideBar = () => {
                 {
                     categories?.length > 0 &&
                     categories.map((category, index) => (
-                        <Menu.Item key={index} icon={<PlayCircleFilled />}>
+                        <Menu.Item
+                            key={index}
+                            icon={<PlayCircleFilled />}
+                        >
                             <Link to={`/${CATEGORY_SECTION}/${category.id}`}>
                                 {category.name}
                             </Link>
+                            <StyledVideoCounts>{category.count_videos}</StyledVideoCounts>
                         </Menu.Item>
                     ))
                 }
@@ -56,3 +61,8 @@ export const SideBar = () => {
         </Sider>
     )
 }
+
+const StyledVideoCounts = styled.span`
+    position: absolute;
+    right: 20px;
+`;

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { hostname } from "../../api/hostname";
-import { CATEGORIES } from "../../constats/types";
+import { FAVORITES } from "../../constats/types";
 
 
 const useToggleFavorite = () => {
@@ -19,6 +19,11 @@ const useToggleFavorite = () => {
     const resp = await asyncCreateCategory(sendData);
 
     if (resp.status === 200) {
+      if(data.favorites) {
+        let favoritesData = client.getQueryData(FAVORITES);
+        const updatedFavoritesData = favoritesData.filter(video => video.id !== data.id);
+        client.setQueriesData(FAVORITES, updatedFavoritesData);
+      }
       return resp.data.status.status === 'favorites';
     }
   }

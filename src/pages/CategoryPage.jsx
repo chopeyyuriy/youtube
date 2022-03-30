@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { VideosTable } from "../components/VideosTable/VideosTable";
 import useGettingVideos from "../hooks/videos/useGettingVideos";
 import useGettingCategories from "../hooks/categories/useGettingCategories";
@@ -18,7 +17,6 @@ export const CategoryPage = () => {
                 title={activeCategory?.name}
                 sortActiveOption={sortActiveOption}
                 onChangeSort={handleChangeSortActiveOption}
-                countVideos={videos.length}
                 addVideo
             />
             <VideosTable

@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 import { VideosTable } from "../components/VideosTable/VideosTable";
-import useGettingVideos from "../hooks/videos/useGettingVideos";
+import useGettingArchive from '../hooks/archive/useGettingArchive';
 import { Header } from "../components/Header/Header";
+import useGettingFavorites from "../hooks/favorites/useGettingFavorites";
 
-export const Dashboard = () => {
-    const { videos } = useGettingVideos();
+export const FavoritePage = () => {
+    const { favorites } = useGettingFavorites();
     const [sortActiveOption, setSortActiveOption] = useState(null);
     const handleChangeSortActiveOption = (value) => setSortActiveOption(value);
 
     return (
         <div>
             <Header
-                title="Головна"
-                addVideo
+                title="Вибране"
                 sortActiveOption={sortActiveOption}
                 onChangeSort={handleChangeSortActiveOption}
             />
             <VideosTable
-                videos={videos}
+                videos={favorites}
                 sortActiveOption={sortActiveOption}
+                favorites
             />
         </div>
     )
