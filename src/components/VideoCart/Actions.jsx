@@ -1,22 +1,33 @@
 import { Button, Popconfirm, Tooltip } from "antd";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { CopyOutlined, CheckOutlined, CaretRightOutlined, DeleteOutlined, ReloadOutlined } from '@ant-design/icons';
+import {
+    CopyOutlined,
+    CheckOutlined,
+    CaretRightOutlined,
+    DeleteOutlined,
+    ReloadOutlined,
+    StarOutlined,
+    StarFilled
+} from '@ant-design/icons';
 import useRemoveVideo from "../../hooks/videos/useRemoveVideo";
 import { useLocation } from "react-router-dom";
-import { ARCHIVE } from "../../contants/types";
+import { ARCHIVE } from "../../constats/types";
+import useToggleFavorite from "../../hooks/favorites/useToggleFavorite";
 
 export const Actions = ({
     visible,
     onSelectVideo,
     videoId,
     link,
-    index
+    isFavorite,
+    changeFavorite
 }) => {
     const [copy, setCopy] = useState(false);
     const [remove, setRemove] = useState(false);
     const [removeLabel, setRemoveLabel] = useState(false);
     const { removeVideo } = useRemoveVideo();
+    const { toggleFavorite } = useToggleFavorite();
     const location = useLocation();
     const pathname = location.pathname.split('/')[1];
     const isArchive = pathname === ARCHIVE;
@@ -31,6 +42,10 @@ export const Actions = ({
         setCopy(true);
     }
 
+    const handleFavorite = async() => {
+        const resp = await toggleFavorite({id: videoId});
+        changeFavorite(resp)
+    }
     const handlePlayVideo = () => {
         onSelectVideo(link)
     }
@@ -60,6 +75,14 @@ export const Actions = ({
                     color="green"
                 >
                     {copy ? <CheckOutlined /> : <CopyOutlined />}
+                </Button>
+            </Tooltip>
+            <Tooltip title={isFavorite ? 'Видалити із вибраного' : "Добавити до вибраного"}>
+                <Button
+                    shape="circle"
+                    onClick={handleFavorite}
+                >
+                   {isFavorite ? <StarFilled style={{color: '#e2df16'}} /> : <StarOutlined /> }
                 </Button>
             </Tooltip>
             <Tooltip title="Перегляд відео">
@@ -118,20 +141,20 @@ const StyledActions = styled.div`
     align-items: center;
     justify-content: center;
     button {
-        height: 60px;
-        width: 60px;
+        height: 40px;
+        width: 40px;
         margin-top: ${props => props.visible ? '0' : '30%'};
         &:not(:last-child) {
             margin-right: 10%;
         }
-        @media (min-width: 1000px) {
-            height: 40px;
-            width: 40px;
-        }
-        @media (min-width: 1200px) {
-            height: 60px;
-            width: 60px;
-        }
+        // @media (min-width: 1000px) {
+        //     height: 40px;
+        //     width: 40px;
+        // }
+        // @media (min-width: 1200px) {
+        //     height: 60px;
+        //     width: 60px;
+        // }
         ${props => !props.isArchive && `
         &:last-child {
             &:hover,&:focus {

@@ -4,12 +4,28 @@ import { VideoCart } from "../VideoCart/VideoCart";
 import { VideoPlayer } from "../VideoPlayer/VideoPlayer";
 import { Empty } from 'antd';
 
-export const VideosTable = ({ videos }) => {
+export const VideosTable = ({ videos, sortActiveOption }) => {
     const [selectedVideo, setSelectedVideo] = useState(null);
 
     const handleSelectVideo = (videoId) => setSelectedVideo(videoId);
     const handleCloseVideoPlayer = () => setSelectedVideo(null);
 
+    const handleFilterVideos = (videos) => {
+        if(sortActiveOption) {
+            switch (sortActiveOption) {
+                case 'old':
+                  return videos.sort((a,b) => Date.parse(a.date_add) - Date.parse(b.date_add) )
+                  break;
+                case 'new':
+                    return videos.sort((a,b) => Date.parse(b.date_add) - Date.parse(a.date_add) )
+                  break;
+                default:
+                    return videos;
+              }
+        } else {
+            return videos;
+        }
+    }
     return (
         <StyledVideosTable>
             <VideoPlayer
@@ -20,7 +36,7 @@ export const VideosTable = ({ videos }) => {
                 videos?.length > 0
                     ? <StyledVideos>
                         {
-                            videos.map((video, i) => (
+                            handleFilterVideos(videos).map((video, i) => (
                                 <VideoCart
                                     key={i}
                                     video={video}

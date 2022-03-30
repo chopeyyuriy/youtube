@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { hostname } from "../../components/api/hostname";
-import { ARCHIVE } from "../../contants/types";
+import { hostname } from "../../api/hostname";
+import { ARCHIVE } from "../../constats/types";
 
 
 const useGettingArchive = () => {

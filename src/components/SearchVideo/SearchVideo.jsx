@@ -88,7 +88,7 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
 
     return (
         <Modal
-            title="Добавити нове відео"
+            title="Додати нове відео"
             okText="Додати"
             cancelText="Відмінити"
             visible={visible}
@@ -129,7 +129,7 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
                             onCancel={handleCleanResults}
                         />
                         <StyledSelect>
-                            <StyledSelectLabel>Розділ</StyledSelectLabel>
+                            <StyledSelectLabel>Назва категорії</StyledSelectLabel>
                             <Select
                                 options={[
                                     { label: 'Виберіть категорію', value: 'default' },

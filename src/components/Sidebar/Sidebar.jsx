@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { Layout, Menu } from "antd";
-import { PlayCircleOutlined, FolderOpenOutlined } from '@ant-design/icons';
+import {
+    HomeFilled,
+    PlayCircleFilled,
+    FolderOpenFilled,
+    StarFilled
+} from '@ant-design/icons';
 import { CreatePlaylist } from "./CreatePlaylist";
 import useGettingCategories from "../../hooks/categories/useGettingCategories";
 import { Link } from "react-router-dom";
-import { CATEGORY_SECTION } from "../../contants/routes";
+import { CATEGORY_SECTION } from "../../constats/routes";
 const { Sider } = Layout;
 
 export const SideBar = () => {
-    const [items, setItems] = useState([{ label: 'test' }]);
     const { categories } = useGettingCategories();
-
-    const handleCreateItem = (item) => setItems([item, ...items]);
-
     return (
         <Sider
             breakpoint="lg"
@@ -24,19 +25,29 @@ export const SideBar = () => {
                 console.log(collapsed, type);
             }}
         >
-            <CreatePlaylist onCreate={handleCreateItem} />
+            <CreatePlaylist />
             <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
+                <Menu.Item icon={<HomeFilled />}>
+                    <Link to={`/`}>
+                        Головна
+                    </Link>
+                </Menu.Item>
                 {
                     categories?.length > 0 &&
                     categories.map((category, index) => (
-                        <Menu.Item key={index} icon={<PlayCircleOutlined />}>
+                        <Menu.Item key={index} icon={<PlayCircleFilled />}>
                             <Link to={`/${CATEGORY_SECTION}/${category.id}`}>
                                 {category.name}
                             </Link>
                         </Menu.Item>
                     ))
                 }
-                <Menu.Item icon={<FolderOpenOutlined />}>
+                <Menu.Item icon={<StarFilled />}>
+                    <Link to={`/favorites`}>
+                        Вибране
+                    </Link>
+                </Menu.Item>
+                <Menu.Item icon={<FolderOpenFilled />}>
                     <Link to={`/archive`}>
                         Архів
                     </Link>

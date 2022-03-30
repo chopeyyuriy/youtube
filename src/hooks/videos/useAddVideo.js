@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
-import { hostname } from "../../components/api/hostname";
-import { VIDEOS } from "../../contants/types";
+import { hostname } from "../../api/hostname";
+import { VIDEOS } from "../../constats/types";
 
 
 const useAddVideo = () => {
@@ -27,10 +27,13 @@ const useAddVideo = () => {
     sendData.append('image_channel', data.image_channel)
 
     const resp = await asyncAddVideo(sendData);
-    if (resp.status === 200 && data.category_id === categoryId) {
+    if (resp.status === 200 && (!categoryId || data.category_id === categoryId)) {
+      
       let videosData = client.getQueriesData(VIDEOS, categoryId);
 
-      if (videosData.length > 1) {
+      if (!categoryId) {
+        videosData = videosData.filter(item => item[0][1] === undefined)[0][1]
+      } else if (videosData.length > 1) {
         videosData = videosData.filter(item => item[0].includes(categoryId))[0][1]
       } else {
         videosData = videosData[0][1];

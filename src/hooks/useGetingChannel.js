@@ -1,5 +1,5 @@
 import axios from "axios"
-import { TOKEN } from "../contants/youtubeToken"
+import { TOKEN } from "../constats/youtubeToken"
 
 const useGetingChannel = () => {
     const handleGetChannelById = async ({ channelId }) => {

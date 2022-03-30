@@ -2,21 +2,28 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Button, Input } from "antd";
 import { CloseOutlined, CheckOutlined } from '@ant-design/icons';
+import useCreatingCategory from "../../hooks/categories/useAddCategory";
 
-export const CreatePlaylist = ({ onCreate }) => {
-    const [creating, setCreating] = useState(false);
+export const CreatePlaylist = () => {
+    const [create, setCreate] = useState(false);
     const [createInput, setCreateInput] = useState('');
+    const [creating, setCreating] = useState(false);
     const [createInputError, setCreateInputError] = useState(false);
+    const { createCategory } = useCreatingCategory();
 
     const handleCloseCreating = () => {
-        setCreating(false);
+        setCreate(false);
         setCreateInput('');
     }
-    const handleCreateItem = () => {
+    const handleCreateItem = async () => {
         if (createInput.length > 0) {
+            setCreating(true);
             setCreateInputError(false)
-            onCreate({ label: createInput })
-            handleCloseCreating();
+            const resp = await createCategory({ name: createInput });
+            if(resp) {
+                setCreating(false);
+                handleCloseCreating();
+            }
         } else {
             setCreateInputError(true)
         }
@@ -25,7 +32,7 @@ export const CreatePlaylist = ({ onCreate }) => {
     return (
         <StyledCreatePlaylist>
             {
-                creating ?
+                create ?
                     <>
                         <Input
                             className="sidebar-create-item-input"
@@ -34,23 +41,34 @@ export const CreatePlaylist = ({ onCreate }) => {
                             status={createInputError && 'error'}
                         />
 
-                        <Button
-                            type="primary"
-                            icon={<CheckOutlined />}
-                            className="sidebar-create-item-botton"
-                            onClick={handleCreateItem}
-                        />
-                        <Button
-                            type="danger"
-                            icon={<CloseOutlined />}
-                            className="sidebar-create-item-botton"
-                            onClick={handleCloseCreating}
-                        />
+                        {
+                            creating
+                                ? <Button
+                                    type="loading"
+                                    className="sidebar-create-item-botton"
+                                    loading
+                                />
+                                : <>
+                                    <Button
+                                        type="primary"
+                                        icon={<CheckOutlined />}
+                                        className="sidebar-create-item-botton"
+                                        onClick={handleCreateItem}
+
+                                    />
+                                    <Button
+                                        type="danger"
+                                        icon={<CloseOutlined />}
+                                        className="sidebar-create-item-botton"
+                                        onClick={handleCloseCreating}
+                                    />
+                                </>
+                        }
                     </>
                     : <Button
                         type="primary"
                         block
-                        onClick={() => setCreating(true)}
+                        onClick={() => setCreate(true)}
                     >
                         Нова категорія
                     </Button>
