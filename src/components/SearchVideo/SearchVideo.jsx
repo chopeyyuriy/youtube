@@ -80,7 +80,7 @@ export const SearchVideo = ({ visible, onClose }) => {
 
         if (resp === 'already exists') {
             setAdding(false);
-            setExsistError('Це відео вже в наявне в базі');
+            setExsistError('Це відео було дододано раніше !');
         } else if (resp === 'error') {
             setAdding(false);
         }else {

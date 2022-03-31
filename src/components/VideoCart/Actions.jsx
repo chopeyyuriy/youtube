@@ -67,7 +67,7 @@ export const Actions = ({
     return (
         <StyledActions visible={visible} isArchive={isArchive}>
             <Tooltip
-                title={copy ? 'Силку скопійовано' : 'Скопіювати силку'}
+                title={copy ? 'Скопійовано !' : 'Копіювати посилання'}
                 color={copy && 'green'}
             >
                 <Button
@@ -78,7 +78,7 @@ export const Actions = ({
                     {copy ? <CheckOutlined /> : <CopyOutlined />}
                 </Button>
             </Tooltip>
-            <Tooltip title={isFavorite ? 'Видалити із вибраного' : "Добавити до вибраного"}>
+            <Tooltip title={isFavorite ? 'Видалити із вибраного' : "Додати до вибраного"}>
                 <Button
                     shape="circle"
                     onClick={handleFavorite}
@@ -100,7 +100,7 @@ export const Actions = ({
                 visible={!remove && removeLabel}
             >
                 <Popconfirm
-                    title={isArchive ? 'Ви точно хочете відновити відео?' : "Ви точно хочете видалити відео?"}
+                    title={isArchive ? 'Відновити це відео?' : "Перемістити в архів?"}
                     onConfirm={handleRemove}
                     onCancel={() => setRemove(false)}
                     okText="Так"
