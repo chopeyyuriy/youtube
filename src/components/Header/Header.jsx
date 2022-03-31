@@ -30,11 +30,19 @@ export const Header = ({ title, addVideo, sortActiveOption, onChangeSort }) => {
                     {title} 
                 </Typography.Title>
                 <div>
+                    <StyledSortLabel>Сортувати за:</StyledSortLabel>
                     <SortButton
-                        title="Cортувати за датою"
+                        title="датою"
                         options={{ down: 'new', up: 'old' }}
                         onChangeActiveSort={onChangeSort}
                         activeOption={sortActiveOption}
+                    />
+                     <SortButton
+                        title="тривалістю"
+                        options={{ down: 'long', up: 'short' }}
+                        onChangeActiveSort={onChangeSort}
+                        activeOption={sortActiveOption}
+                        last
                     />
                     {
                         addVideo &&
@@ -59,4 +67,9 @@ const StyledHeader = styled.div`
     svg {
         margin-left: 5px;
     }
+`;
+
+const StyledSortLabel = styled.span`
+    margin-right: 10px;
+    font-size: 16px;
 `;

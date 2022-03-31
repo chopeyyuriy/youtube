@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { VideoCart } from "../VideoCart/VideoCart";
 import { VideoPlayer } from "../VideoPlayer/VideoPlayer";
 import { Empty } from 'antd';
+import moment from "moment";
 
 export const VideosTable = ({ videos, sortActiveOption }) => {
     const [selectedVideo, setSelectedVideo] = useState(null);
@@ -11,17 +12,23 @@ export const VideosTable = ({ videos, sortActiveOption }) => {
     const handleCloseVideoPlayer = () => setSelectedVideo(null);
 
     const handleFilterVideos = (videos) => {
-        if(sortActiveOption) {
+        if (sortActiveOption) {
             switch (sortActiveOption) {
                 case 'old':
-                  return videos.sort((a,b) => Date.parse(a.date_add) - Date.parse(b.date_add) )
-                  break;
+                    return videos.sort((a, b) => Date.parse(a.date_add) - Date.parse(b.date_add))
+                    break;
                 case 'new':
-                    return videos.sort((a,b) => Date.parse(b.date_add) - Date.parse(a.date_add) )
-                  break;
+                    return videos.sort((a, b) => Date.parse(b.date_add) - Date.parse(a.date_add))
+                    break;
+                case 'short':
+                    return videos.sort((a, b) => moment.duration(a.duration)._milliseconds - moment.duration(b.duration)._milliseconds);
+                    break;
+                case 'long':
+                    return videos.sort((a, b) => moment.duration(b.duration)._milliseconds - moment.duration(a.duration)._milliseconds);
+                    break;
                 default:
                     return videos;
-              }
+            }
         } else {
             return videos;
         }
