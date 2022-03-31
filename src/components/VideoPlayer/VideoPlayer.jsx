@@ -8,14 +8,14 @@ export const VideoPlayer = ({ videoId, onClose }) => {
             visible={!!videoId}
             footer={null}
             wrapClassName="video-player-modal"
-            width={'900px'}
+            width={'1000px'}
             onCancel={onClose}
             destroyOnClose
         >
             <StyledVideo>
                 <iframe
                     width="100%"
-                    height="469"
+                    height="520"
                     src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
                     frameborder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; allowfullscreen"

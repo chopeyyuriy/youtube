@@ -52,7 +52,7 @@ const StyledPreview = styled.div`
     box-shadow: 4px 5px 11px -1px rgba(0,0,0,0.3);
     ${
         props => props.isFavorite && `
-        outline: 4px solid rgb(226, 223, 22);
+        outline: 4px solid #FCD535;
         border-radius: 2px;
     `
     }

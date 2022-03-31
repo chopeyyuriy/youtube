@@ -83,7 +83,7 @@ export const Actions = ({
                     shape="circle"
                     onClick={handleFavorite}
                 >
-                   {isFavorite ? <StarFilled style={{color: '#e2df16'}} /> : <StarOutlined /> }
+                   {isFavorite ? <StarFilled style={{color: '#FCD535'}} /> : <StarOutlined /> }
                 </Button>
             </Tooltip>
             <Tooltip title="Перегляд відео">
@@ -148,14 +148,6 @@ const StyledActions = styled.div`
         &:not(:last-child) {
             margin-right: 10%;
         }
-        // @media (min-width: 1000px) {
-        //     height: 40px;
-        //     width: 40px;
-        // }
-        // @media (min-width: 1200px) {
-        //     height: 60px;
-        //     width: 60px;
-        // }
         ${props => !props.isArchive && `
         &:last-child {
             &:hover,&:focus {

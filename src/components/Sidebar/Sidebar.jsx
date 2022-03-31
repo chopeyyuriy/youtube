@@ -15,6 +15,7 @@ const { Sider } = Layout;
 
 export const SideBar = () => {
     const { categories } = useGettingCategories();
+
     return (
         <Sider
             breakpoint="lg"
@@ -27,8 +28,8 @@ export const SideBar = () => {
             }}
         >
             <CreatePlaylist />
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['4']}>
-                <Menu.Item icon={<HomeFilled />}>
+            <Menu theme="dark" mode="inline" >
+                <Menu.Item icon={<HomeFilled />} key="default">
                     <Link to={`/`}>
                         Головна
                     </Link>
@@ -47,12 +48,16 @@ export const SideBar = () => {
                         </Menu.Item>
                     ))
                 }
-                <Menu.Item icon={<StarFilled />}>
+                <Menu.Item
+                    icon={<StarFilled />}
+                >
                     <Link to={`/favorites`}>
                         Вибране
                     </Link>
                 </Menu.Item>
-                <Menu.Item icon={<FolderOpenFilled />}>
+                <Menu.Item
+                    icon={<FolderOpenFilled />}
+                >
                     <Link to={`/archive`}>
                         Архів
                     </Link>

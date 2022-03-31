@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FileImageOutlined } from '@ant-design/icons';
 import { Typography } from "antd";
 
-export const FoundedVideo = ({ title, image }) => {
+export const FoundedVideo = ({ title, image, error }) => {
     return (
         <StyledFoundedVideo>
             {
@@ -15,8 +15,8 @@ export const FoundedVideo = ({ title, image }) => {
                     </StyledNoImage>
             }
             <StyledDescription>
-                <StyledVideoTitle>
-                    {title}
+                <StyledVideoTitle error={error}>
+                    {error ?? title}
                 </StyledVideoTitle>
             </StyledDescription>
 
@@ -61,5 +61,6 @@ const StyledVideoTitle = styled.div`
     font-size: 14px;
     line-height: 20px;
     font-weight: 500;
-    color: #030303;
+    transition: all .5s;
+    color: ${props => props.error ? '#ff5252' : '#030303'};
 `;

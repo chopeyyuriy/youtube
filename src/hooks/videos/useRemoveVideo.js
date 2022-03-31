@@ -2,7 +2,7 @@ import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { hostname } from "../../api/hostname";
-import { ARCHIVE, VIDEOS } from "../../constats/types";
+import { ARCHIVE, CATEGORIES, VIDEOS } from "../../constats/types";
 
 
 const useRemoveVideo = () => {
@@ -45,6 +45,17 @@ const useRemoveVideo = () => {
         client.setQueriesData(VIDEOS, updatedVideosData);
       }
 
+      if(categoryId) {
+        let categoriesData = client.getQueryData(CATEGORIES);
+        const updatedCAtegories = categoriesData.map(category => {
+          if(category.id === categoryId) {
+            return ({...category, count_videos: Number(category.count_videos) - 1})
+          }
+          return category
+        })
+        client.setQueriesData(CATEGORIES, updatedCAtegories);
+
+      }
     }
   }
 

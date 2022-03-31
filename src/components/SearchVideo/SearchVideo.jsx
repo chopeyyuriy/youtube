@@ -9,13 +9,14 @@ import useGettingCategories from "../../hooks/categories/useGettingCategories";
 import { useParams } from "react-router-dom";
 import useAddVideo from "../../hooks/videos/useAddVideo";
 
-export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
+export const SearchVideo = ({ visible, onClose }) => {
     const { categoryId } = useParams();
     const [searchInput, setSearchInput] = useState('');
     const [categorySelect, setCategotySelect] = useState(categoryId ?? 'default');
     const [searching, setSearching] = useState(false);
     const [result, setResult] = useState(null);
     const [error, setError] = useState(false);
+    const [existError, setExsistError] = useState(null);
     const [adding, setAdding] = useState(false);
     const { getVideo } = useGetingVideo();
     const { getChannel } = useGetingChannel();
@@ -26,6 +27,7 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
         setResult(null);
         setSearchInput('');
         setError(false);
+        setExsistError(null);
     };
 
     const handleSearchVideo = async () => {
@@ -75,13 +77,21 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
             channel_name: result.channel.name,
             image_channel: result.channel.image_channel
         })
-        resp && setAdding(false)
-        onAddVideo(resp);
-        handleCleanResults();
+
+        if (resp === 'already exists') {
+            setAdding(false);
+            setExsistError('Це відео вже в наявне в базі');
+        } else if (resp === 'error') {
+            setAdding(false);
+        }else {
+            setExsistError(null);
+            setAdding(false);
+            handleCloseModal();
+        }
     }
 
     useEffect(() => {
-        if(!visible) {
+        if (!visible) {
             setCategotySelect(categoryId ?? 'default');
         }
     }, [visible, categoryId])
@@ -92,7 +102,7 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
             okText="Додати"
             cancelText="Відмінити"
             visible={visible}
-            okButtonProps={{ disabled: !result || categorySelect === 'default' }}
+            okButtonProps={{ disabled: !result || categorySelect === 'default' || existError}}
             onCancel={handleCloseModal}
             onOk={handleSubmitVideo}
             confirmLoading={adding}
@@ -127,19 +137,22 @@ export const SearchVideo = ({ visible, onClose, onAddVideo }) => {
                             link={result.link}
                             image={result.image}
                             onCancel={handleCleanResults}
+                            error={existError}
                         />
-                        <StyledSelect>
-                            <StyledSelectLabel>Назва категорії</StyledSelectLabel>
-                            <Select
-                                options={[
-                                    { label: 'Виберіть категорію', value: 'default' },
-                                    ...categories.map(c => ({ label: c.name, value: c.id }))
-                                ]}
-                                className="search-video-category-select"
-                                value={categorySelect}
-                                onChange={(value) => setCategotySelect(value)}
-                            />
-                        </StyledSelect>
+                        {
+                            !existError &&
+                            <StyledSelect>
+                                <Select
+                                    options={[
+                                        { label: 'Виберіть категорію', value: 'default' },
+                                        ...categories.map(c => ({ label: c.name, value: c.id }))
+                                    ]}
+                                    className="search-video-category-select"
+                                    value={categorySelect}
+                                    onChange={(value) => setCategotySelect(value)}
+                                />
+                            </StyledSelect>
+                        }
                     </>
                 }
 
@@ -166,10 +179,4 @@ const StyledSelect = styled.div`
     display: flex;
     align-items: center;
     margin-top: 10px;
-`;
-
-const StyledSelectLabel = styled.div`
-    font-size: 15px;
-    font-weight: 500;
-    margin-right: 10px;
 `;

@@ -10,7 +10,6 @@ export const CategoryPage = () => {
     const [sortActiveOption, setSortActiveOption] = useState(null);
     const handleChangeSortActiveOption = (value) => setSortActiveOption(value);
 
-    console.log(activeCategory)
     return (
         <div>
             <Header
