@@ -11,7 +11,7 @@ export const SortButton = ({ title, options, activeOption, onChangeActiveSort, l
         <Button
             type="default"
             onClick={handleChangeOption}
-            style={{ marginRight: last ? '10px' : '5px' }}
+            style={{ marginRight: last ? '0' : '5px' }}
         >
             {title}
             {

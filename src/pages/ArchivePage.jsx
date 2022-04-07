@@ -5,8 +5,12 @@ import { Header } from "../components/Header/Header";
 
 export const ArchivePage = () => {
     const { archive } = useGettingArchive();
+    //sorting videos
     const [sortActiveOption, setSortActiveOption] = useState(null);
     const handleChangeSortActiveOption = (value) => setSortActiveOption(value);
+    //searching videos
+    const [search, setSearch] = useState();
+    const handleChangeSearch = (value) => setSearch(value);
 
     return (
         <div>
@@ -14,10 +18,13 @@ export const ArchivePage = () => {
                 title="Aрхів"
                 sortActiveOption={sortActiveOption}
                 onChangeSort={handleChangeSortActiveOption}
+                search={search}
+                onChangeSearch={handleChangeSearch}
             />
             <VideosTable
                 videos={archive}
                 sortActiveOption={sortActiveOption}
+                search={search}
             />
         </div>
     )

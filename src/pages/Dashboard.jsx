@@ -5,8 +5,12 @@ import { Header } from "../components/Header/Header";
 
 export const Dashboard = () => {
     const { videos } = useGettingVideos();
-    const [sortActiveOption, setSortActiveOption] = useState(null);
-    const handleChangeSortActiveOption = (value) => setSortActiveOption(value);
+      //sorting videos
+      const [sortActiveOption, setSortActiveOption] = useState(null);
+      const handleChangeSortActiveOption = (value) => setSortActiveOption(value);
+      //searching videos
+      const [search, setSearch] = useState();
+      const handleChangeSearch = (value) => setSearch(value);
 
     return (
         <div>
@@ -15,10 +19,13 @@ export const Dashboard = () => {
                 addVideo
                 sortActiveOption={sortActiveOption}
                 onChangeSort={handleChangeSortActiveOption}
+                search={search}
+                onChangeSearch={handleChangeSearch}
             />
             <VideosTable
                 videos={videos}
                 sortActiveOption={sortActiveOption}
+                search={search}
             />
         </div>
     )
