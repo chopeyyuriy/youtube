@@ -18,7 +18,7 @@ const StyledImage = styled.div`
     height: 200px;
     position: relative;
     border-radius: 2px;
-    background-size: 125% !important;
+    background-size: 100% !important;
     background: url(${props => props.image}) no-repeat center center/cover gainsboro;
     @media (min-width: 500px) {
         height: 300px;
@@ -36,6 +36,6 @@ const StyledImage = styled.div`
         height: 170px;
     }
     @media (min-width: 1300px) {
-        height: 190px;
+        height: 170px;
     }
 `;

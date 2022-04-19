@@ -82,10 +82,10 @@ const StyledVideos = styled.div`
     @media (min-width:1400px) {
         grid-template-columns: repeat(4, 1fr);
     }
-    @media (min-width:1750px) {
+    @media (min-width:1790px) {
         grid-template-columns: repeat(5, 1fr);
     }
-    @media (min-width:1760px) {
+    @media (min-width:1850px) {
         width: 1600px;
     }
 `;

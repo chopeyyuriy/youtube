@@ -8,7 +8,6 @@ import { HashRouter } from 'react-router-dom';
 
 const queryClient = new QueryClient();
 
-
 ReactDOM.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
