@@ -4,6 +4,7 @@ import { Button, Input, Typography } from "antd";
 import { SearchVideo } from "../SearchVideo/SearchVideo";
 import { SortButton } from "./SortButton";
 import { SearchOutlined } from '@ant-design/icons';
+import { Settings } from "./Settings";
 
 export const Header = ({
     title,
@@ -38,6 +39,7 @@ export const Header = ({
                 <Typography.Title level={2}>
                     {title}
                 </Typography.Title>
+                <Settings/>
                 <Input
                     className="search-input"
                     placeholder="Пошук відео або каналу"
@@ -45,6 +47,7 @@ export const Header = ({
                     value={search}
                     onChange={e => onChangeSearch(e.target.value)}
                 />
+
                 <StyledFooter>
                     {
                         addVideo &&
@@ -81,6 +84,7 @@ const StyledHeader = styled.div`
     flex-direction: column;
     gap: 10px;
     padding: 20px;
+    position: relative;
     h2 {
         word-break: break-all;
     }
