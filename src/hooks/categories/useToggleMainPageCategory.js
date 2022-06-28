@@ -15,7 +15,7 @@ const useToggleMainPageCategory = () => {
       let categoriesData = client.getQueryData(CATEGORIES);
       const updatedCategoriesData = categoriesData.map(category => category.id === id ? ({ ...category, main_page: category.main_page === '1' ? '0' : '1' }) : category);
       client.setQueriesData(CATEGORIES, updatedCategoriesData);
-
+      return resp
     }
   }
 
